@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Student Panel</title>
+<script src="https://unpkg.com/html5-qrcode"></script>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body><div class="container">
+<h1>Welcome Roll: {{ roll }}</h1>
+<p>University ka QR scan karo</p>
+<div id="reader" style="width:300px; margin:auto;"></div>
+<p id="result" style="font-weight:bold;"></p>
+<a href="/logout"><button>Logout</button></a>
+</div>
+<script>
+function onScanSuccess(decodedText) {
+  fetch('/mark_attendance', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({qr_code: decodedText})
+  }).then(r=>r.json()).then(d=>{
+    document.getElementById('result').innerText = d.msg;
+    alert(d.msg);
+  });
+}
+let scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+scanner.render(onScanSuccess);
+</script>
+</body></html>

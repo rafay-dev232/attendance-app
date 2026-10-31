@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Teacher Panel</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><div class="container">
+<h1>Teacher Panel</h1>
+<p>Total Attendance: {{ total }}</p>
+<table border="1" cellpadding="10" style="margin:auto; background:white;">
+<tr><th>Roll No</th><th>Date</th><th>Time</th></tr>
+{% for row in all_data %}
+<tr><td>{{ row.name }}</td><td>{{ row.date }}</td><td>{{ row.time }}</td></tr>
+{% endfor %}
+</table><br>
+<a href="/logout"><button>Logout</button></a>
+</div></body></html>
